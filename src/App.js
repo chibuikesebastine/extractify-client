@@ -1,22 +1,23 @@
-import logo from './logo.svg';
+import TextAreaContainer from './components/ExtracteTextArea';
+import FileUploadForm from './components/FileUploadForm';
 import './App.css';
+import { v4 as uuid } from 'uuid'
+import { useState } from 'react';
 
 function App() {
+  let browserId = localStorage.getItem("broswerId");
+  if(!browserId){
+    browserId = uuid();
+  }
+
+  const [ uploadCount, setUploadCount ] = useState("");
+
+  localStorage.setItem("browserId", browserId)
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <FileUploadForm browserId={browserId} setUploadCount={setUploadCount} uploadCount={uploadCount}/>
+        <TextAreaContainer broswerId={browserId} uploadCount={uploadCount} />
       </header>
     </div>
   );
